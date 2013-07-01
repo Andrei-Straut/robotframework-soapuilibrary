@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<keywordspec generated="20130607 16:17:41" format="ROBOT" type="library" name="SoapUILibrary">
+<version>0.2</version>
+<scope>test case</scope>
+<namedargs>yes</namedargs>
+<doc>The main class of the library </doc>
+<kw name="Soapui Add Project Property">
+<arguments>
+<arg>propertyName</arg>
+<arg>propertyValue</arg>
+</arguments>
+<doc>Adds a project property to properties dictionary.
+This assumes that you have already initialized the project via
+the `SoapUI Project` keyword.</doc>
+</kw>
+<kw name="Soapui Case">
+<arguments>
+<arg>c</arg>
+</arguments>
+<doc>Set the test case string </doc>
+</kw>
+<kw name="Soapui Customize Project">
+<arguments>
+<arg>project</arg>
+<arg>suite</arg>
+<arg>output_folder</arg>
+<arg>export_all</arg>
+<arg>endpoint</arg>
+</arguments>
+<doc>Sets the most commonly used values to the project and suite given as parameters</doc>
+</kw>
+<kw name="Soapui Get Test Case">
+<arguments>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Soapui Project">
+<arguments>
+<arg>prj</arg>
+</arguments>
+<doc>Initialize the runner and set the project string </doc>
+</kw>
+<kw name="Soapui Run">
+<arguments>
+</arguments>
+<doc>Run the runner and report to Robot </doc>
+</kw>
+<kw name="Soapui Set Domain">
+<arguments>
+<arg>domain</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Soapui Set Endpoint">
+<arguments>
+<arg>endpoint</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Soapui Set Export All">
+<arguments>
+<arg>exportAll</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Soapui Set Host">
+<arguments>
+<arg>host</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Soapui Set Output Folder">
+<arguments>
+<arg>outputFolder</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Soapui Set Password">
+<arguments>
+<arg>password</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Soapui Set Print Report">
+<arguments>
+<arg>printReport</arg>
+</arguments>
+<doc>Set whether a short report should be reported after the execution of each test case
+Return type is Python Boolean (True/False)</doc>
+</kw>
+<kw name="Soapui Set Project Password">
+<arguments>
+<arg>password</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Soapui Set Project Property">
+<arguments>
+<arg>*properties</arg>
+</arguments>
+<doc>Sets project properties for the current test run.
+This assumes that you have already initialized the project via
+the `SoapUI Project` keyword.
+
+`properites` may contain multiple statements, and each must be specified as: key=value.
+
+This is useful to data drive your existing SoapUI tests via property expansion.
+For more information see: http://www.soapui.org/Scripting-Properties/property-expansion.html
+
+Example:
+| SoapUI Project | My Project |
+| SoapUI Set Project Property | ServiceEndpoint=https://staging.company.com | # set a single property |
+| SoapUI Set Project Property | CustomProperty=foo | AnotherProperty=bar | # or set multiple properties |</doc>
+</kw>
+<kw name="Soapui Set Username">
+<arguments>
+<arg>username</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Soapui Start Mock Service">
+<arguments>
+<arg>p</arg>
+<arg>m</arg>
+</arguments>
+<doc>Runs a mock service </doc>
+</kw>
+<kw name="Soapui Stop Mock Service">
+<arguments>
+</arguments>
+<doc>Stops the mock service </doc>
+</kw>
+<kw name="Soapui Suite">
+<arguments>
+<arg>s</arg>
+</arguments>
+<doc>Set the suite string </doc>
+</kw>
+</keywordspec>
