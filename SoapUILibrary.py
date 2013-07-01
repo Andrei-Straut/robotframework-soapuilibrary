@@ -22,6 +22,8 @@ from com.eviware.soapui.tools import (SoapUIMockServiceRunner)
 from robot.api import logger
 
 import thread
+import socket
+import os
 
 class SoapUILibrary:
     """ The main class of the library """
@@ -34,10 +36,23 @@ class SoapUILibrary:
         self.__mockrunner = None
         self._project_properties = []
 
+    def soapui_customize_project(self, project, suite, output_folder, export_all, endpoint):
+        """
+        Sets the most commonly used values to the project and suite given as parameters
+        """
+        self.__runner = SoapUITestCaseRunner()
+        self.__runner.setProjectFile(project)
+        self.__runner.setTestSuite(suite)
+        self.soapui_set_output_folder(output_folder)
+        self.soapui_set_export_all(export_all)
+        self.soapui_set_endpoint(endpoint)
+        self.soapui_set_print_report(True)
+
     def soapui_project(self, prj):
         """ Initialize the runner and set the project string """
         self.__runner = SoapUITestCaseRunner()
         self.__runner.setProjectFile(prj)
+        self.soapui_set_print_report(True)
 
     def soapui_suite(self, s):
         """ Set the suite string """
@@ -47,12 +62,25 @@ class SoapUILibrary:
         """ Set the test case string """
         self.__runner.setTestCase(c)
 
+    def soapui_add_project_property(self, propertyName, propertyValue):
+        """
+        Adds a project property to properties dictionary.
+        This assumes that you have already initialized the project via
+        the `SoapUI Project` keyword.
+        """
+        prop = propertyName + '=' + propertyValue
+        self._project_properties.append(prop)
+        try:
+            self.__runner.setProjectProperties(self._project_properties)
+        except AttributeError:
+            logger.warn('No project set. Cannot set project properties.')
+
     def soapui_set_project_property(self, *properties):
         """ Sets project properties for the current test run.
         This assumes that you have already initialized the project via
         the `SoapUI Project` keyword.
 
-        `properies` may contain multiple statements, and each must be specified as: key=value.
+        `properites` may contain multiple statements, and each must be specified as: key=value.
 
         This is useful to data drive your existing SoapUI tests via property expansion.
         For more information see: http://www.soapui.org/Scripting-Properties/property-expansion.html
@@ -66,7 +94,7 @@ class SoapUILibrary:
             if len(prop.split('=')) == 2:
                 self._project_properties.append(prop)
             else:
-                logger.warn("Skipping property: '%s'. Properties must be specified as: key=value" % prop)
+                logger.warn("Skipping property: '%s'. Properties must be specified as: key=value. Equals (=) sign in keys or values is not allowed" % prop)
         try:
             self.__runner.setProjectProperties(self._project_properties)
         except AttributeError:
@@ -96,3 +124,38 @@ class SoapUILibrary:
     def soapui_stop_mock_service(self):
         """ Stops the mock service """
         self.__mockrunner.stopAll()
+
+    def soapui_set_endpoint(self, endpoint):
+        self.__runner.setEndpoint(endpoint)
+
+    def soapui_set_host(self, host):
+        self.__runner.setHost(host)
+
+    def soapui_set_password(self, password):
+        self.__runner.setPassword(password)
+
+    def soapui_set_username(self, username):
+        self.__runner.setUsername(username)
+
+    def soapui_set_domain(self, domain):
+        self.__runner.setDomain(domain)
+
+    def soapui_set_project_password(self, password):
+        self.__runner.setProjectPassword(password)
+
+    def soapui_set_output_folder(self, outputFolder):
+        self.__runner.setOutputFolder(outputFolder)
+
+    def soapui_set_export_all(self, exportAll):
+        self.__runner.setExportAll(exportAll)
+
+    def soapui_set_print_report(self, printReport):
+        """ 
+        Set whether a short report should be reported after the execution of each test case
+        Return type is Python Boolean (True/False)
+        """
+        printReport=bool(printReport)
+        self.__runner.setPrintReport(printReport)
+    
+    def soapui_get_test_case(self):
+        return self.__runner.getTestCase()
